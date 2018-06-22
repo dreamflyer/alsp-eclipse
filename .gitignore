@@ -1,0 +1,6 @@
+/.metadata
+/.recommenders
+.DS_Store
+org.mule.alsp/bin/*
+org.mule.alsp/lib/*
+org.eclipse.lsp4e/bin/*

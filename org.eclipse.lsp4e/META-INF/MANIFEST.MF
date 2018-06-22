@@ -1,0 +1,566 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.mulesoft.lsp4e;singleton:=true
+Archiver-Version: Plexus Archiver
+Built-By: genie.lsp4e
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.12.0",org.e
+ clipse.equinox.common;bundle-version="3.8.0",org.eclipse.jface.text,o
+ rg.eclipse.ui.workbench.texteditor;bundle-version="3.10.0",org.eclips
+ e.jface;bundle-version="3.12.0",org.eclipse.ui.workbench;bundle-versi
+ on="3.108.0",org.eclipse.core.resources;bundle-version="3.11.0",org.e
+ clipse.ui;bundle-version="3.108.0",org.eclipse.ui.ide,org.eclipse.tex
+ t,org.eclipse.xtext.xbase.lib;bundle-version="2.10.0",org.eclipse.cor
+ e.filebuffers;bundle-version="3.6.0",org.eclipse.core.filesystem;bund
+ le-version="1.6.0",org.eclipse.search;bundle-version="3.11.0",org.ecl
+ ipse.ui.genericeditor;bundle-version="1.0.0";resolution:=optional,org
+ .eclipse.ui.views,org.eclipse.debug.core,org.eclipse.core.externaltoo
+ ls;bundle-version="1.0.400",org.eclipse.debug.ui;bundle-version="3.11
+ .200",org.eclipse.swt,org.eclipse.jdt.annotation;bundle-version="2.1.
+ 0";resolution:=optional,org.eclipse.ui.editors,org.eclipse.ui.navigat
+ or;bundle-version="3.6.100",org.eclipse.mylyn.commons.notifications.c
+ ore,org.eclipse.mylyn.commons.notifications.ui,org.eclipse.lsp4j;bund
+ le-version="[0.2.0,0.4.0)",org.eclipse.lsp4j.jsonrpc;bundle-version="
+ [0.2.0,0.4.0)",org.eclipse.mylyn.wikitext;bundle-version="3.0.0",org.
+ eclipse.mylyn.wikitext.markdown;bundle-version="3.0.0",org.eclipse.ui
+ .console,org.eclipse.ltk.core.refactoring,org.eclipse.core.expression
+ s;bundle-version="3.5.0",org.eclipse.e4.ui.css.swt.theme,org.eclipse.
+ ltk.ui.refactoring
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Eclipse-SourceReferences: scm:git:https://git.eclipse.org/r/p/lsp4e/ls
+ p4e.git;path="org.eclipse.lsp4e";commitId=ddad577ec6dcd96218041e19332
+ 7c6fa69b2b901
+Bundle-Vendor: Eclipse.org
+Import-Package: com.google.common.base,com.google.gson;version="2.7.0"
+Export-Package: org.eclipse.lsp4e;x-internal:=true,
+ org.eclipse.lsp4e.operations.codeactions,
+ org.eclipse.lsp4e.operations.codelens,
+ org.eclipse.lsp4e.operations.completion;x-internal:=true,
+ org.eclipse.lsp4e.operations.declaration,
+ org.eclipse.lsp4e.operations.diagnostics,
+ org.eclipse.lsp4e.operations.documentLink,
+ org.eclipse.lsp4e.operations.format,
+ org.eclipse.lsp4e.operations.highlight,
+ org.eclipse.lsp4e.operations.hover;x-internal:=true,
+ org.eclipse.lsp4e.operations.references,
+ org.eclipse.lsp4e.operations.rename,
+ org.eclipse.lsp4e.operations.symbols,
+ org.eclipse.lsp4e.outline;x-internal:=true,
+ org.eclipse.lsp4e.server;version="0.1.0",
+ org.eclipse.lsp4e.ui
+Bundle-Name: Language Server Protocol client for Eclipse IDE (Incubati
+ on)
+Bundle-Version: 0.4.0.201710071337
+Bundle-ClassPath: .
+Bundle-Localization: plugin
+Bundle-Activator: org.eclipse.lsp4e.LanguageServerPlugin
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_131
+
+Name: org/eclipse/lsp4e/operations/format/LSPFormatHandler.class
+SHA-256-Digest: Uf0Fj1osVFJPrprFAS1CSDpJyvB9I3KHlRVzm8uW52I=
+
+Name: icons/full/obj16/value@2x.png
+SHA-256-Digest: bPVoFAx6neVyZwi6PDbLj5LA6rQn6em7tt8S/SDTKbs=
+
+Name: plugin.xml
+SHA-256-Digest: RNiNvZDczhubNdp/T0O3f1odbVsQS1OcheKEhgbBj8A=
+
+Name: org/eclipse/lsp4e/operations/rename/LSPRenameProcessor.class
+SHA-256-Digest: J8ICfLv1K4rj5IUOAtiKQ/DWc7W4VyTNKOiv9lJaUWk=
+
+Name: org/eclipse/lsp4e/DisableShortcutsWorkaround$1.class
+SHA-256-Digest: 4lIucIy0qcR43KoOSanId2oTTdaerALcpOTPmKtIdyk=
+
+Name: org/eclipse/lsp4e/operations/references/LSFindReferences.class
+SHA-256-Digest: cb2BCtqVO3cfYgyyn5XWV46VAj3XCA0/JvQc7R4PrW0=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$4.class
+SHA-256-Digest: lMZgq8hJxEjky8eaJEOvo4tTeaA3/IlGpAb7IvXEE+A=
+
+Name: icons/full/dlcl16/link_to_editor@2x.png
+SHA-256-Digest: hwrRl7APbw4ql0IT2yW33OhzE34iXBomcdZo4O0mpv4=
+
+Name: icons/full/obj16/constant.png
+SHA-256-Digest: acAOhSJwQdI229GVhsmrVH8BcdRzj0JVwvV7Wwu5MaQ=
+
+Name: icons/full/obj16/enum.png
+SHA-256-Digest: /VjbW1jfaL8xmhFFEV5ef4vBhhwE1QHLf4TzlW0SZoI=
+
+Name: org/eclipse/lsp4e/ui/NewContentTypeLSPLaunchDialog$3.class
+SHA-256-Digest: VqussX3PlFzZsXOZ5+aR7gQyIxszqk2JEtJCImZz0ak=
+
+Name: org/eclipse/lsp4e/server/StreamConnectionProvider.class
+SHA-256-Digest: a1hqOxSTNYvSVhB8rU/DjFOMrNhmcT88s0GOYithocA=
+
+Name: org/eclipse/lsp4e/LanguageServersRegistry$LaunchConfigurationLan
+ guageServerDefinition.class
+SHA-256-Digest: lTGK9bK1drcaacz8SKtkGlre91WFYqEKIFmX2hVV0Tk=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage.class
+SHA-256-Digest: Ot6OjW51D52eEIy2bvhe40NrW4rJpEJWz92MVIrClAI=
+
+Name: icons/full/obj16/value.png
+SHA-256-Digest: hlcB/CFG8+DAXXqD6muJwBM23IiifnNHpwk2mjrEG7Q=
+
+Name: icons/full/obj16/keyword.png
+SHA-256-Digest: fSs6AYUdOJgnwQU85pEp3lygCB3QiiikPXXqH3pr8SI=
+
+Name: org/eclipse/lsp4e/LSPEclipseUtils.class
+SHA-256-Digest: Pt05MHfaJMiNhrLV4FdfcHEumGS4Vx3yftdY4g1UBBM=
+
+Name: org/eclipse/lsp4e/LaunchConfigurationStreamProvider.class
+SHA-256-Digest: 0lYTeUiH8BRQkZ22R00h7m/PWqfz4D0ewIUeNVsINXw=
+
+Name: org/eclipse/lsp4e/ConnectDocumentToLanguageServerSetupParticipan
+ t.class
+SHA-256-Digest: ox1d3V/ryWY0BeGuR/WXuqk3ocfh6FA9j66DwtNhuDY=
+
+Name: org/eclipse/lsp4e/operations/symbols/LSPSymbolInFileHandler.clas
+ s
+SHA-256-Digest: HCTb88Hm7lekx6yH9Sq8XCEveep3U2I8Rozl/qeSPoc=
+
+Name: org/eclipse/lsp4e/operations/codeactions/LSPCodeActionMarkerReso
+ lution$1.class
+SHA-256-Digest: 7NpZ+6wLJMfOa5NjpqBlLefRVii7vXtMiajvSKOCROA=
+
+Name: icons/full/dtool16/mark_occurrences@2x.png
+SHA-256-Digest: bGBe1QcTfIm9EAtQg4rUOvaVJO6DXO2/a6OZP2YyzBc=
+
+Name: org/eclipse/lsp4e/LanguageServersRegistry$LanguageServerDefiniti
+ on.class
+SHA-256-Digest: ywGgQQb+1PRfkj+aSSjeNJ4+la8+SHmQ/9U4AY40u2Q=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$7.class
+SHA-256-Digest: M1XLBIyhlJkEJMeE8HAuhvBH0IawhWHRI3hs2FuSZaY=
+
+Name: icons/full/obj16/interface.png
+SHA-256-Digest: z8mSNoo3wsBiqP5/XN1Gnb3cPWcDJqBIJVOS0avHZp8=
+
+Name: icons/full/dtool16/mark_occurrences.png
+SHA-256-Digest: YhaDy8mPscN8vIEBRbbn/5bQ/F8vsg7TJOahd6dugVE=
+
+Name: org/eclipse/lsp4e/operations/symbols/LSPSymbolInFileDialog$Symbo
+ lsContentProvider.class
+SHA-256-Digest: 80srAZXjsjOMJHI2sFDmI/uzCsTrGe1GW86cYhooMb8=
+
+Name: org/eclipse/lsp4e/operations/references/LSSearchResult$LSSearchQ
+ uery.class
+SHA-256-Digest: SJ4f+fUHCyf4cEEjkDAoAA9vrvOHdsRjUZeviOCJiCY=
+
+Name: org/eclipse/lsp4e/outline/EditorToOutlineAdapterFactory.class
+SHA-256-Digest: wNsrno7ouehbUqZOuR6UV2EsyGAAl/NrY4cBTeB0sqc=
+
+Name: org/eclipse/lsp4e/LanguageServiceAccessor$LSPDocumentInfo.class
+SHA-256-Digest: dLe5nwsohYOkY9ktCHNpFNXRLXNXR4GN/rbQaeRiqAY=
+
+Name: org/eclipse/lsp4e/operations/symbols/LSPSymbolInFileDialog.class
+SHA-256-Digest: geLKp6IaZi8ykWhD685Zsy3OTuXvDFfqFrd80c+2GO8=
+
+Name: org/eclipse/lsp4e/outline/ToggleLinkingHandler.class
+SHA-256-Digest: lTxDdJkuBGr8nIEOJi/yGwDJyD38/I4AvIkXqdL75hQ=
+
+Name: icons/full/obj16/constant@2x.png
+SHA-256-Digest: ZiXK/KL8ST/trJirkHVtq7Pjpaopi8ZvkLOvpTue78k=
+
+Name: org/eclipse/lsp4e/ProjectSpecificLanguageServerWrapper.class
+SHA-256-Digest: pYzsVf1tTpiNLHo+CMqX+AWMBoqKzwFhJt9ouzOA95k=
+
+Name: org/eclipse/lsp4e/ProjectSpecificLanguageServerWrapper$2.class
+SHA-256-Digest: 8gBKZk6Ahz3CkpyVZkiBQtHTDQbEdurdQcUHE7x1rsM=
+
+Name: icons/full/obj16/field.png
+SHA-256-Digest: Sm/6bQ6J6Oc9KHmhxHD5Bnut8jBqY5uWk8Bnq5UoGs4=
+
+Name: icons/full/obj16/text@2x.png
+SHA-256-Digest: VW25NJrhRFE5mZkclpXAqrt34QX4xttMNX7sRlJNalk=
+
+Name: org/eclipse/lsp4e/operations/format/LSPFormatter.class
+SHA-256-Digest: NYHWfsl69RdmnGdqlYbVqvHIUtt/96dOKtXYJhrCWNU=
+
+Name: org/eclipse/lsp4e/ProjectSpecificLanguageServerWrapper$1.class
+SHA-256-Digest: 3RFdVyXw/Mbr3O7evU69dGsgpbb1+O65g6sTqmio66Q=
+
+Name: icons/full/obj16/property@2x.png
+SHA-256-Digest: wfIBTEaa1d8FrFLGjxZFmkqIejwGLAJo8cXwz4vnIDY=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$9.class
+SHA-256-Digest: s8iUY8ueTPinC+gvW9WbRzk7a9UVdRqq2+jI2lbfB+c=
+
+Name: icons/full/elcl16/link_to_editor.png
+SHA-256-Digest: otifVa+dQFq0LbN+9VZ+Rj43KTu59WxwPWBKj4R/b18=
+
+Name: icons/full/obj16/method@2x.png
+SHA-256-Digest: TjuLjc3ZrBVAxMbH+Iga7lxbxwqnHOiBKwNYlk03QG4=
+
+Name: org/eclipse/lsp4e/operations/codeactions/LSPCodeActionsMenu$1.cl
+ ass
+SHA-256-Digest: 8fAwvLvDPcToRvcJFAHsGCD6WwI6qI6d/vj/6mE7HP8=
+
+Name: org/eclipse/lsp4e/operations/documentLink/DocumentLinkDetector$D
+ ocumentHyperlink.class
+SHA-256-Digest: 3wn33Tk0mqreD9vz25/0kXEsifRXAFIckiXSCrU2ooI=
+
+Name: org/eclipse/lsp4e/operations/rename/LSPRenameRefactoringWizard$R
+ enameInputWizardPage$1.class
+SHA-256-Digest: /uDbOmK3UXRNdZVO8ADImZH6dENLu56GEEYcyfrmG4I=
+
+Name: icons/full/obj16/namespace@2x.png
+SHA-256-Digest: ZKh9xwpfbNGr9xpO0clMCqrYaE3y5/xb85qaOjgGqJM=
+
+Name: icons/full/obj16/package.png
+SHA-256-Digest: ySCzGi1GjKIjx0y7sZ7hHwo16C206o52ac0B4AV64cY=
+
+Name: org/eclipse/lsp4e/ui/Messages.class
+SHA-256-Digest: iH+tsLzEjPQl7kzKLao4XnIFIkEJzge72D13SPMZtrI=
+
+Name: .options
+SHA-256-Digest: mG/onIl+JN2SZHXAx0MAgqsQcjPP+PnxWSDczOdTVFA=
+
+Name: icons/full/obj16/enum@2x.png
+SHA-256-Digest: QTBblcX16QQvrZz7sIPuAM5x5LRpbBIOZcglfCfjje0=
+
+Name: org/eclipse/lsp4e/operations/hover/LSBasedHover.class
+SHA-256-Digest: LqqHHiEd5+ioNRQcGjB89potGercDia21slAvhtjyYA=
+
+Name: org/eclipse/lsp4e/operations/hover/LSBasedHover$FocusableBrowser
+ InformationControl$1.class
+SHA-256-Digest: Rc2TPIuuW8gIETN9KiDSWHoBEB8OwPoEhyWWfAIM45U=
+
+Name: org/eclipse/lsp4e/server/ProcessOverSocketStreamConnectionProvid
+ er.class
+SHA-256-Digest: kDQrgFL+YXBCitpu7l83GrWI0wXQ9hilMk5px5nLBxY=
+
+Name: org/eclipse/lsp4e/LanguageClientImpl$3.class
+SHA-256-Digest: 6BWq6LYt+sEDtUBapmaUNqEU+kkcGL6BCl5FsJJgqZc=
+
+Name: org/eclipse/lsp4e/ConnectDocumentToLanguageServerSetupParticipan
+ t$1.class
+SHA-256-Digest: Ja4Z+0FgYJWgV/jPZ0qM8SQUU76KO61Co3Nfi8yfXP8=
+
+Name: org/eclipse/lsp4e/operations/highlight/HighlightReconcilingStrat
+ egy.class
+SHA-256-Digest: dyKb7X3ZrL/3Lg3Rx+OxQxhT/zGZGMCqNZpNaFxilZs=
+
+Name: org/eclipse/lsp4e/operations/codeactions/LSPCodeActionMarkerReso
+ lution.class
+SHA-256-Digest: tI29bvtGZlXLENeg69e7lQByaR/3+6qOLkEMajeTEvM=
+
+Name: org/eclipse/lsp4e/operations/completion/LSIncompleteCompletionPr
+ oposal$1.class
+SHA-256-Digest: NryMFQdY6rgQ/3fXa99ni+q7VbLquJ1AwzjDXP0LLSM=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$2.class
+SHA-256-Digest: iR3vf7cgiHGWhqGZFXTxqF2hKL1xJozYkrloNwP6vPc=
+
+Name: icons/full/obj16/package@2x.png
+SHA-256-Digest: VE1mkbchHajpSx+qv9QUtw0/YVEcXTWSJnaMQajVlEE=
+
+Name: icons/full/obj16/variable.png
+SHA-256-Digest: xdT0cK485+iCPnOMr0qIYFkxVTyNmkdxh6freNjLuCg=
+
+Name: org/eclipse/lsp4e/operations/codelens/LSPCodeLensMenu$1.class
+SHA-256-Digest: uaSdibVQSAZMF6PD4nJRMa4Tn5hIihSlRB5bUTiMVX4=
+
+Name: org/eclipse/lsp4e/FileBufferListenerAdapter.class
+SHA-256-Digest: Ny8vgIVklv1k0uQbqtEHRwP05ArAQ/I1R9wLMEHIGMQ=
+
+Name: org/eclipse/lsp4e/LanguageClientImpl.class
+SHA-256-Digest: p9+Z2tAlNzIky3yj+RuISsK5VzajCNVaex3p3A2ZpMA=
+
+Name: org/eclipse/lsp4e/ContentTypeToLanguageServerDefinition.class
+SHA-256-Digest: ypAhyVm19xuo1ogfuMZC0+zI6jPwGThdJiGrDoWtAks=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$1.class
+SHA-256-Digest: x3pAQpC5Md0Ff52XlFhQ1lTRLotvj8C0jQ/fSu9KDqQ=
+
+Name: org/eclipse/lsp4e/DocumentContentSynchronizer.class
+SHA-256-Digest: B2tls+F1jdq8+8sMgfBMMB08Qi6pVMLqOlWS90UeW4s=
+
+Name: org/eclipse/lsp4e/operations/symbols/LSPSymbolInWorkspaceDialog.
+ class
+SHA-256-Digest: CbIcgur+5Xlq/hl79QqXQYOQLxbLbmbHt6Y9fQEUjoc=
+
+Name: icons/full/elcl16/link_to_editor@2x.png
+SHA-256-Digest: JHkRiOB1aAvor0I01wIBOmnAwsyV0QGu0euq4XyjN48=
+
+Name: icons/full/obj16/reference@2x.png
+SHA-256-Digest: CfQJMtROTbiqoNmYkfDX2sj/5HOoCFBTzmxdruh8ClY=
+
+Name: org/eclipse/lsp4e/operations/hover/LSBasedHover$FocusableBrowser
+ InformationControl.class
+SHA-256-Digest: 0oJLgSXR7n99+fcvCOLjes44EoWFxtOrxe4grGdsRII=
+
+Name: org/eclipse/lsp4e/operations/completion/LSContentAssistProcessor
+ .class
+SHA-256-Digest: 2RVq5qCIyjBEunwIrsprRWzqDEV91bZTpY/7IzZe+TU=
+
+Name: icons/full/obj16/module.png
+SHA-256-Digest: XnF3h+dE5lY+CTHar6xW5W1mnrL7NHFUH4ExFaDWFHI=
+
+Name: org/eclipse/lsp4e/ui/NewContentTypeLSPLaunchDialog$ContentTypesL
+ abelProvider.class
+SHA-256-Digest: bvMEnYC5/Clis+kNvNIF3jHm0Maack4gcs2YLSZf928=
+
+Name: icons/full/obj16/function@2x.png
+SHA-256-Digest: mMzwVcOn9kEK2jMRntYZPBbY9oQsxkjuGrU76+L1W10=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$8.class
+SHA-256-Digest: q3MFO+Ct+TpybDNk9xrPSGXIMJhWvnGkmLjPGXnOMIQ=
+
+Name: icons/full/obj16/snippet@2x.png
+SHA-256-Digest: dpF8kZd8mrMQoqYJ8ESAnJ1KvqtEQbxBL28lI5VBvz0=
+
+Name: org/eclipse/lsp4e/LanguageServerPlugin.class
+SHA-256-Digest: DvX31exfzE3AS7YJv4c+iLHgb2FCqqAEhabk+ZogM4w=
+
+Name: org/eclipse/lsp4e/operations/completion/LSIncompleteCompletionPr
+ oposal.class
+SHA-256-Digest: 8cexps1hbX69pAgQARiMlM9aG7gPkeIKxm+OyLPjQXU=
+
+Name: org/eclipse/lsp4e/ServerMessageHandler.class
+SHA-256-Digest: afnK1BXYDs9a2N/JV4cuAiZsTWPrEL7V4YwAJIUpmLw=
+
+Name: icons/full/obj16/function.png
+SHA-256-Digest: 73/DFQPX3S7aYLaFTgW2D7LNw3mJhTG9u//waWjco+U=
+
+Name: icons/full/obj16/variable@2x.png
+SHA-256-Digest: ZOVqEihvzE/KJE1wykVqRS2ssdvNL2+zihJtlkGSUnk=
+
+Name: org/eclipse/lsp4e/operations/documentLink/DocumentLinkDetector.c
+ lass
+SHA-256-Digest: a83M2jFm6FFyeZgvcMllccLle796tFj7EdmSxrcU8Bw=
+
+Name: icons/full/obj16/number.png
+SHA-256-Digest: heeWpDhrSw0K7Js0aLl+RmaY09pjDKWubv4D/885ezE=
+
+Name: icons/full/obj16/boolean@2x.png
+SHA-256-Digest: gQM2gX0drhAx0fX8APfDsFsNKNXb2xTEMjbgHD2HIDU=
+
+Name: org/eclipse/lsp4e/operations/symbols/LSPSymbolInWorkspaceDialog$
+ 1.class
+SHA-256-Digest: 39beQJGNJKZCXhzvwwH620RW3Vu3av1fESmCpphy5lk=
+
+Name: META-INF/maven/org.eclipse.lsp4e/org.eclipse.lsp4e/pom.propertie
+ s
+SHA-256-Digest: xMdvJJg5ie4ujpRaCT84xvEWTxoicnkvUdlZtAdFnJ8=
+
+Name: icons/full/etool16/mark_occurrences.png
+SHA-256-Digest: sSKb69ssLrNXAPTu6QSFJmnbqxD/eDufEE/vv5S2Jlw=
+
+Name: icons/full/obj16/number@2x.png
+SHA-256-Digest: 5+QXvxTDHDAQ0W3JSRtYzyKZMtaKZ1lS9MwNQD5xjgY=
+
+Name: org/eclipse/lsp4e/outline/LSSymbolsContentProvider.class
+SHA-256-Digest: ZstQq9c4A42uid9seatbetdKgUA6fWVpC6SZnbmjBhs=
+
+Name: plugin.properties
+SHA-256-Digest: 0qrRUpPYd6aJklKa3W4i42KVOSAPeV9FPEGt1Bf47nI=
+
+Name: org/eclipse/lsp4e/outline/SymbolsModel$1.class
+SHA-256-Digest: D5ZkcYEIOm1niK9LaAN4aDZluSOrNgxtOztCmOBQ69U=
+
+Name: icons/full/obj16/keyword@2x.png
+SHA-256-Digest: 7nLJtQ2VnBxFtun2EsD5k0GIHEyxpJd6rRMf/0IUaNQ=
+
+Name: org/eclipse/lsp4e/LanguageServiceAccessor.class
+SHA-256-Digest: zcmCh9bQ4cxU8UZvO5njvje0fMCRUNnAhiivlnC0PZE=
+
+Name: org/eclipse/lsp4e/operations/codelens/LSPCodeLensMenu$1$1.class
+SHA-256-Digest: XrMWMmvVnibpdP29HLlDR7NHVD/rm9RkOsSpRMG0bvs=
+
+Name: icons/full/obj16/reference.png
+SHA-256-Digest: xoQR+ekGt95uALZJiR4snT0IKBMzHY37o2YMIfA2iWo=
+
+Name: META-INF/maven/org.eclipse.lsp4e/org.eclipse.lsp4e/pom.xml
+SHA-256-Digest: Wr9FjUdcOoRdixowpER6GPgf32xjWzcG67z1zJ2yrn8=
+
+Name: org/eclipse/lsp4e/ui/NewContentTypeLSPLaunchDialog$2.class
+SHA-256-Digest: tB8BbmWDmdpq+jREn+yyII7yyWRg/E2S+jmhsj4QYXA=
+
+Name: icons/full/obj16/interface@2x.png
+SHA-256-Digest: hP3gH8IP5p0nP18/WY65PyishA3amFTPkqSPVIQ38fM=
+
+Name: org/eclipse/lsp4e/operations/symbols/LSPSymbolInWorkspaceHandler
+ .class
+SHA-256-Digest: jeQz/2tkLO/6qtAR5JQKuE3vx4bUWqQTwxvo2jsF32Y=
+
+Name: org/eclipse/lsp4e/server/ProcessStreamConnectionProvider.class
+SHA-256-Digest: y8ANSHfucspW9ewznRzaIirDkT+1AkZTMOoHCC0EdNU=
+
+Name: org/eclipse/lsp4e/DisableShortcutsWorkaround.class
+SHA-256-Digest: MazCWjunaozEPMatiTPVWEHM4o+qsZY3g1lBMzLk808=
+
+Name: icons/full/obj16/field@2x.png
+SHA-256-Digest: psNFZvBR8gB6+r1LzUrx6HwQ752p/BfiiePEAUv3eYo=
+
+Name: org/eclipse/lsp4e/operations/codelens/LSPCodeLensMenu.class
+SHA-256-Digest: KkCESIao2eoEOZkcoBWkNg0pqWT3iUed06PE6h8RDTc=
+
+Name: org/eclipse/lsp4e/ui/messages.properties
+SHA-256-Digest: nFO5WhXWHk1q5TE/cOvdIZRMTxmfNFFEI55BHzZAL1Q=
+
+Name: org/eclipse/lsp4e/operations/symbols/LSPSymbolInWorkspaceDialog$
+ InternalItemsFilter.class
+SHA-256-Digest: 6iYc9q/pFotQ+kQVbENPwO8TiPSrD801t9Y3vokv4e0=
+
+Name: org/eclipse/lsp4e/LanguageServersRegistry$ContentTypeMapping.cla
+ ss
+SHA-256-Digest: XXC1ZPIN/I5T4z+P5wRpYmCqN3H7oS7kpPX315zDXJw=
+
+Name: org/eclipse/lsp4e/operations/rename/LSPRenameHandler.class
+SHA-256-Digest: 0Mfw2cwMBOAkr94RlkxCxwSgdG+PCULkmPrZuZf/lQY=
+
+Name: org/eclipse/lsp4e/operations/codeactions/CodeActionMarkerResolut
+ ion.class
+SHA-256-Digest: 8qyac77a8FwH4wWhL9Oeu6fDJIpVFcftzWw6pdTMvGE=
+
+Name: icons/full/etool16/mark_occurrences@2x.png
+SHA-256-Digest: O1Izm3NKQeELtSBItbfuTdnzP4BUrEjwto4AKlRdYTA=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$6.class
+SHA-256-Digest: U3ZUgIeqfVLSVvP0ozc+ldxtOO5v5MH6gB0OTXlFong=
+
+Name: icons/full/dlcl16/link_to_editor.png
+SHA-256-Digest: C9epe0yowc5MMphUA2vP29x7WgXDMMntY1JZWiTIgGk=
+
+Name: org/eclipse/lsp4e/operations/completion/LSCompletionProposal.cla
+ ss
+SHA-256-Digest: izdgM9Us5j9RuMV0ib9u0MHYVDPdUuXrf/KbnxpPZpg=
+
+Name: org/eclipse/lsp4e/outline/SymbolsLabelProvider.class
+SHA-256-Digest: KQZ1rBvj+CQ8IEjBreJUBp86jd7YCh5hyt+euz0jjmQ=
+
+Name: icons/full/obj16/class.png
+SHA-256-Digest: NDaoHgk6J6GgH+WIqo05rtR7dOP+9qov/ox7c6ORvL8=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$3.class
+SHA-256-Digest: sxIog09KkVdtd/ppQs0hUJQmtSRYaplrvCiRxIBdIE4=
+
+Name: org/eclipse/lsp4e/operations/highlight/HighlightReconciler.class
+SHA-256-Digest: d1IyqYs/he/AVT1K6fKvFUx6wM1H++motwhLdw7J4xI=
+
+Name: org/eclipse/lsp4e/operations/rename/LSPRenameRefactoringWizard$R
+ enameInputWizardPage.class
+SHA-256-Digest: WT7Plgbo5I1j67lqS40qVf5RintCaFRiROVlCcZogi0=
+
+Name: org/eclipse/lsp4e/ui/NewContentTypeLSPLaunchDialog$ContentTypesC
+ ontentProvider.class
+SHA-256-Digest: UCpidzGv8yLRtqkrf/6MhTEbpBEEg9JwlxSGYGNnmrs=
+
+Name: org/eclipse/lsp4e/operations/symbols/LSPSymbolInWorkspaceDialog$
+ InternalSymbolsLabelProvider.class
+SHA-256-Digest: 1pNeAp6sCGaCp/BxCSwvYEBQGuG2RvKG/aaknxxvGvU=
+
+Name: org/eclipse/lsp4e/LaunchConfigurationStreamProvider$StreamProxyI
+ nputStream.class
+SHA-256-Digest: RbucaPJJaMaPBkUuCb1JDwXDaeUoCLoYLMKoJ3x65tk=
+
+Name: org/eclipse/lsp4e/operations/diagnostics/LSPDiagnosticsToMarkers
+ .class
+SHA-256-Digest: BDThXPI/Tn6wLE7kula0gtosbBTJRGyzbBIwZullqZQ=
+
+Name: icons/full/obj16/snippet.png
+SHA-256-Digest: 0vsFMgcAnsSyqcIaFvW9tllZXMGw/cVVcoh6V7PcRA4=
+
+Name: org/eclipse/lsp4e/outline/SymbolsModel.class
+SHA-256-Digest: ve3GJuiyQB2zrmWArLIofzvOjnw2Ev/1bQ1SQNDIq0Q=
+
+Name: org/eclipse/lsp4e/operations/codeactions/LSPCodeActionsMenu.clas
+ s
+SHA-256-Digest: esG3QLiyu+hIE0IpQgFO19uS83OLx5mPjkTvRC/MWYY=
+
+Name: icons/full/obj16/method.png
+SHA-256-Digest: xbQ1EY1S5DDtdNbVSaM/qLVPzUzX8LF0OKJSpI6OrC8=
+
+Name: org/eclipse/lsp4e/outline/SymbolInformationPropertyTester.class
+SHA-256-Digest: OBCkzjwHqo4wee4bh/LSJWtPQiowkTwQtM0BMpbApwA=
+
+Name: org/eclipse/lsp4e/ConnectDocumentToLanguageServerSetupParticipan
+ t$DocumentInputStream.class
+SHA-256-Digest: qof5jrhOTkEwspTadzhaWSRhyyK6xXTBPgqOOQyvMUE=
+
+Name: org/eclipse/lsp4e/LSPEclipseUtils$Pair.class
+SHA-256-Digest: VXPC8W20tCCgqwqMqNye61ClG2gO7TZPixg+Z7rmSRA=
+
+Name: org/eclipse/lsp4e/operations/declaration/OpenDeclarationHyperlin
+ kDetector.class
+SHA-256-Digest: 6H/hLPqbLFlCBzigw1ZjoCkbkkc7LfGneT4WcBZh3p4=
+
+Name: org/eclipse/lsp4e/LanguageServersRegistry$ExtensionLanguageServe
+ rDefinition.class
+SHA-256-Digest: wsCK8nbQKh3zTXP5b5A95McQuJ+eJrVX+LNDSmL/cR8=
+
+Name: icons/full/obj16/boolean.png
+SHA-256-Digest: DeLme8MxicCu594SQIJdJWtmHrqJDOEGoNBFYFN4pL4=
+
+Name: org/eclipse/lsp4e/ui/NewContentTypeLSPLaunchDialog$1.class
+SHA-256-Digest: QJb8jEMIZhBpZXh6aVR69mHryO5DgEjniHN3LDmm4Bg=
+
+Name: org/eclipse/lsp4e/ServerMessageHandler$LSPNotification.class
+SHA-256-Digest: feP2KHsWBX+wE55GU5V1KPTNcun1IHuQ2+XCDTUxGkw=
+
+Name: org/eclipse/lsp4e/LanguageServersRegistry.class
+SHA-256-Digest: QHieT+Rl3w0O2rv9c2fKmQGQ18RCss2l5GdSCNE4rT8=
+
+Name: icons/full/obj16/namespace.png
+SHA-256-Digest: cIC5SvsKEP+IdsK3P68bVeX1Fp8Fnrzbvr8zRdZZGxo=
+
+Name: org/eclipse/lsp4e/operations/highlight/ToggleHighlight.class
+SHA-256-Digest: xWwDI9XTw/k3Qb7TVPUySl6m/WCQHeJ9mWVO9fRyUE0=
+
+Name: org/eclipse/lsp4e/ui/LSPImages.class
+SHA-256-Digest: FBnbJLcY3QMdsb4WHBuhcDcV8SJ3yT8yO4jvZ0N8pfc=
+
+Name: org/eclipse/lsp4e/ContentTypeToLSPLaunchConfigEntry.class
+SHA-256-Digest: +UiEEh82+MBJj6m32TeLxGS29L4evc/yTiGP5m7mrAI=
+
+Name: about.html
+SHA-256-Digest: 1fuYr0bu6NsJZCAmSom5QtnvnV0Cg8DwLn77Dd1Ql24=
+
+Name: org/eclipse/lsp4e/operations/declaration/OpenDeclarationHyperlin
+ kDetector$LSBasedHyperlink.class
+SHA-256-Digest: pevagGgP9M7mWiYT5Z0kp3T3s1JI7c5t1FdCPx8XtW0=
+
+Name: org/eclipse/lsp4e/operations/references/LSSearchResult.class
+SHA-256-Digest: NPoJGKX8awcRHF6h46D9HD0AWUs+vdZk5jmSEFnd+ak=
+
+Name: org/eclipse/lsp4e/outline/CNFOutlinePage$1.class
+SHA-256-Digest: HHolnZdTx/NQmCCeP4W8CqucM21KgUN0gPGj/86sSm4=
+
+Name: org/eclipse/lsp4e/ui/NewContentTypeLSPLaunchDialog.class
+SHA-256-Digest: /Poh/HaDDLqGVr7Y0IyfZU4RPxv4G3LAbAjAEBkwCzU=
+
+Name: icons/full/obj16/module@2x.png
+SHA-256-Digest: EXZZx6YIEp8N+zrYG9T1/zkLITV4whHsLYQlhVu5HC4=
+
+Name: icons/full/obj16/text.png
+SHA-256-Digest: JvOXg+8g8vNN0Yt8VqUBpv6KEvH0djlUWyJ1TJQ+0Jk=
+
+Name: org/eclipse/lsp4e/ui/LanguageServerPreferencePage$5.class
+SHA-256-Digest: ZGC758yybWOEDTECQKgyubAw2BfKPuebLvu/SWnxWBY=
+
+Name: icons/full/obj16/property.png
+SHA-256-Digest: Yy4KfdLDP1M2Y52LXDd/TtglFjChxFF22pYdhz0EAs4=
+
+Name: org/eclipse/lsp4e/operations/completion/LSContentAssistProcessor
+ $1.class
+SHA-256-Digest: Je4pp7+Ylu3TJN75HqkJwnXscSHPTG/93wiJ9FRX9PA=
+
+Name: icons/full/obj16/class@2x.png
+SHA-256-Digest: DrC/suICfXh+lG6G2ddJSMuZRQrXt/SWBcpfsMcGdSs=
+
+Name: org/eclipse/lsp4e/operations/hover/LSBasedHover$1.class
+SHA-256-Digest: 5zHIaj0Xz4W/+G1WXvzXN1Se8mrmNO0O4dnTA/qszk0=
+
+Name: org/eclipse/lsp4e/operations/codeactions/LSPCodeActionsMenu$1$1.
+ class
+SHA-256-Digest: 060zDQFrSTHDaBM2hmVw9bnYQB4YV+LXUT5rcFlTgf8=
+
+Name: org/eclipse/lsp4e/operations/rename/LSPRenameRefactoringWizard.c
+ lass
+SHA-256-Digest: hDiyBL2DirmqUfxiFv4o3pom6OvtoGILtVRbQfy+LWM=
+
+Name: org/eclipse/lsp4e/outline/CNFOutlinePage.class
+SHA-256-Digest: 15jIKeA8IeQ1+YhbckZ1rJFdF6ncAbIkW7IJZpP8nWA=
+
