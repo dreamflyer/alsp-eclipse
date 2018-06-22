@@ -8,25 +8,25 @@ import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.SymbolInformation;
 
-class SymbolsTree {
+class SymbolsModel {
 	private SymbolInformation info;
 	
 	private SymbolInformation parent;
 	
-	private List<SymbolsTree> children = new ArrayList<SymbolsTree>();
+	private List<SymbolsModel> children = new ArrayList<SymbolsModel>();
 	
 	private static final String CATEGORY_ID = "categories";
 	
-	public SymbolsTree() {
+	public SymbolsModel() {
 		
 	}
 	
-	private SymbolsTree(SymbolInformation info) {
+	private SymbolsModel(SymbolInformation info) {
 		this.info = info;
 	}
 	
 	public void update(List<SymbolInformation> infos) {
-		children = new ArrayList<SymbolsTree>();
+		children = new ArrayList<SymbolsModel>();
 		
 		infos.forEach(info -> addChild(info));
 		
@@ -38,7 +38,7 @@ class SymbolsTree {
 			return null;
 		}
 		
-		SymbolsTree owner = findOwner((SymbolInformation) child);
+		SymbolsModel owner = findOwner((SymbolInformation) child);
 		
 		if(owner == null) {
 			return null;
@@ -52,7 +52,7 @@ class SymbolsTree {
 			return new Object[0];
 		}
 		
-		SymbolsTree owner = findOwner((SymbolInformation) parent);
+		SymbolsModel owner = findOwner((SymbolInformation) parent);
 		
 		if(owner == null) {
 			return new Object[0];
@@ -73,13 +73,13 @@ class SymbolsTree {
 		});
 	}
 	
-	private SymbolsTree findOwner(SymbolInformation parent) {
+	private SymbolsModel findOwner(SymbolInformation parent) {
 		if(this.info == parent) {
 			return this;
 		}
 		
-		for(SymbolsTree child: children) {
-			SymbolsTree canBeOwner = child.findOwner(parent);
+		for(SymbolsModel child: children) {
+			SymbolsModel canBeOwner = child.findOwner(parent);
 			
 			if(canBeOwner == null) {
 				continue;
@@ -95,14 +95,14 @@ class SymbolsTree {
 		int index = indexOfParentOf(info);
 		
 		if(index != -1) {
-			SymbolsTree parent = children.get(index);
+			SymbolsModel parent = children.get(index);
 			
 			parent.addChild(info);
 			
 			return;
 		}
 		
-		SymbolsTree newItem = new SymbolsTree(info);
+		SymbolsModel newItem = new SymbolsModel(info);
 		
 		index = indexOfChildOf(info);
 		

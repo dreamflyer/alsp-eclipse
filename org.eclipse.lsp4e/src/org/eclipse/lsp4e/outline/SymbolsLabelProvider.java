@@ -81,7 +81,7 @@ public class SymbolsLabelProvider extends LabelProvider implements ICommonLabelP
 		
 		IResource resource = LSPEclipseUtils.findResourceFor(symbolInformation.getLocation().getUri());
 		
-		if(resource != null && !SymbolsTree.isCategory(symbolInformation) && SymbolsTree.isValidRange(symbolInformation)) {
+		if(resource != null && !SymbolsModel.isCategory(symbolInformation) && SymbolsModel.isValidRange(symbolInformation)) {
 			try {
 				IDocument doc = LSPEclipseUtils.getDocument(resource);
 				

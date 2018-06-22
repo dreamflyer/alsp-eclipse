@@ -49,7 +49,7 @@ public class LSSymbolsContentProvider implements ICommonContentProvider, ITreeCo
 	private Throwable lastError;
 	private LSPDocumentInfo info;
 	
-	private SymbolsTree symbolsModel = new SymbolsTree();
+	private SymbolsModel symbolsModel = new SymbolsModel();
 	private CompletableFuture<List<? extends SymbolInformation>> symbols;
 
 	private IResource resource;
