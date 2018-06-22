@@ -56,12 +56,6 @@ import org.mulesoft.language.common.dtoTypes.IValidationIssue;
 import org.mulesoft.language.outline.structure.structureInterfaces.StructureNodeJSON;
 
 public class ALSPTextDocumentService implements TextDocumentService {
-	private Hover mockHover;
-	private List<? extends Location> mockDefinitionLocations;
-	private List<? extends TextEdit> mockFormattingTextEdits;
-	private SignatureHelp mockSignatureHelp;
-	private List<DocumentLink> mockDocumentLinks;
-
 	private CompletableFuture<DidSaveTextDocumentParams> didSaveCallback;
 	private CompletableFuture<DidCloseTextDocumentParams> didCloseCallback;
 
@@ -100,8 +94,7 @@ public class ALSPTextDocumentService implements TextDocumentService {
 		});
 		
 		this._futureFactory = futureFactory;
-		mockHover = new Hover(Collections.singletonList(Either.forLeft("Mock hover")), null);
-		
+				
 		this.remoteProxies = new ArrayList<>();
 	}
 
@@ -145,7 +138,7 @@ public class ALSPTextDocumentService implements TextDocumentService {
 
 	@Override
 	public CompletableFuture<Hover> hover(TextDocumentPositionParams position) {
-		return CompletableFuture.completedFuture(mockHover);
+		return CompletableFuture.completedFuture(null);
 	}
 
 	@Override
@@ -154,7 +147,7 @@ public class ALSPTextDocumentService implements TextDocumentService {
 	}
 
 	public CompletableFuture<List<? extends Location>> definition(TextDocumentPositionParams position) {
-		return CompletableFuture.completedFuture(mockDefinitionLocations);
+		return CompletableFuture.completedFuture(null);
 	}
 
 	public CompletableFuture<List<? extends Location>> references(ReferenceParams params) {
@@ -166,7 +159,7 @@ public class ALSPTextDocumentService implements TextDocumentService {
 	}
 
 	public CompletableFuture<List<? extends SymbolInformation>> documentSymbol(DocumentSymbolParams params) {
-		CompletableFuture<List<? extends SymbolInformation>> result = new <List<SymbolInformation>>CompletableFuture();
+		CompletableFuture<List<? extends SymbolInformation>> result = new <List<? extends SymbolInformation>>CompletableFuture();
 		
 		//ServerProcess.documentChanged(params.getTextDocument().getUri(), textMap.get(params.getTextDocument().getUri()), textVersion.get(params.getTextDocument().getUri()) + 1);
 				
@@ -174,12 +167,6 @@ public class ALSPTextDocumentService implements TextDocumentService {
 			public void success(Map<String, JAVAStructureNode> map) {
 				List<SymbolInformation> list = outlineSymbols(params.getTextDocument().getUri(), textMap.get(params.getTextDocument().getUri()), map);
 				
-				//SymbolsTree.refine(list);
-				
-				Range listRange = getRange(list);
-				
-				//list.add(new SymbolInformation("root", SymbolKind.Class, new Location(params.getTextDocument().getUri(), listRange)));
-				System.out.println("SERVER STRUCTURE LENGTH: " + list.size());
 				result.complete(list);
 			}
 			
@@ -198,11 +185,7 @@ public class ALSPTextDocumentService implements TextDocumentService {
 		
 		Range range = positionsToRange(node.start(), nodeEnd, text);
 		
-		//Range nrange = new Range(range.getStart(), new Position(range.getEnd().getLine(), range.getEnd().getCharacter() + 500));
-		
-		//String nodeText = node.text().replace("/", "");
-		
-		String label = (node.text().isEmpty() ? "empty" : node.text());// + rangeToString(range);// + " " + rangeToString(range) + " " + node.icon() + " " + node.key();
+		String label = (node.text().isEmpty() ? "empty" : node.text());
 		
 		if(!node.text().isEmpty()) {
 			list.add(new SymbolInformation(label, kindFromNode(rootNode), new Location(uri, range)));
@@ -221,14 +204,6 @@ public class ALSPTextDocumentService implements TextDocumentService {
 		return list;
 	}
 	
-	private String rangeToString(Range range) {
-		return "[" + positionToString(range.getStart()) + ", " + positionToString(range.getEnd()) + "]";
-	}
-	
-	private String positionToString(Position pos) {
-		return "(" + pos.getLine() + ", " + pos.getCharacter() + ")";
-	}
-	
 	private List<SymbolInformation> outlineSymbols(String uri, String text, Map<String, JAVAStructureNode> map) {
 		List<SymbolInformation> result = new ArrayList<SymbolInformation>();
 		
@@ -243,55 +218,9 @@ public class ALSPTextDocumentService implements TextDocumentService {
 		return SymbolKind.Field;
 	}
 	
-	private Range getRange(List<SymbolInformation> list) {
-		Position min = new Position(Integer.MAX_VALUE, Integer.MAX_VALUE);
-		Position max = new Position(0, 0);
-		
-		for(int i = 0; i < list.size(); i++) {
-			SymbolInformation node = list.get(i);
-			
-			Position start = node.getLocation().getRange().getStart();
-			Position end = node.getLocation().getRange().getEnd();
-			
-			if(comparePositions(min, start)) {
-				min = start;
-			}
-			
-			if(comparePositions(end, max)) {
-				max = end;
-			}
-		}
-		
-		return new Range(min, new Position(max.getLine() + 1, max.getCharacter() + 1));
-	}
-	
-	static boolean compareRanges(Range rg1, Range rg2) {
-		if(comparePositions(rg1.getStart(), rg2.getStart())) {
-			return false;
-		}
-		
-		if(comparePositions(rg2.getEnd(), rg1.getEnd())) {
-			return false;
-		}
-		
-		return comparePositions(rg2.getStart(), rg1.getStart());
-	}
-	
-	static boolean comparePositions(Position pos1, Position pos2) {
-		if(pos1.getLine() > pos2.getLine()) {
-			return true;
-		}
-		
-		if(pos1.getLine() == pos2.getLine() && pos1.getCharacter() > pos2.getCharacter()) {
-			return true;
-		}
-		
-		return false;
-	}
-	
 	@Override
 	public CompletableFuture<List<DocumentLink>> documentLink(DocumentLinkParams params) {
-		return CompletableFuture.completedFuture(mockDocumentLinks);
+		return CompletableFuture.completedFuture(null);
 	}
 
 	@Override
@@ -311,7 +240,7 @@ public class ALSPTextDocumentService implements TextDocumentService {
 
 	@Override
 	public CompletableFuture<List<? extends TextEdit>> formatting(DocumentFormattingParams params) {
-		return CompletableFuture.completedFuture(mockFormattingTextEdits);
+		return CompletableFuture.completedFuture(null);
 	}
 
 	@Override
@@ -331,26 +260,20 @@ public class ALSPTextDocumentService implements TextDocumentService {
 
 	@Override
 	public void didOpen(DidOpenTextDocumentParams params) {
-		this.textMap.put(params.getTextDocument().getUri(), params.getTextDocument().getText());
-		this.textVersion.put(params.getTextDocument().getUri(), params.getTextDocument().getVersion());
+		textMap.put(params.getTextDocument().getUri(), params.getTextDocument().getText());
+		textVersion.put(params.getTextDocument().getUri(), params.getTextDocument().getVersion());
 		
 		ServerProcess.documentOpened(new IOpenedDocument(params.getTextDocument().getUri(), params.getTextDocument().getVersion(), params.getTextDocument().getText()));
 	}
 
 	@Override
 	public void didChange(DidChangeTextDocumentParams params) {
-				
 		params.getContentChanges().forEach(textDocumentChange -> {
-			this.textMap.put(params.getTextDocument().getUri(), textDocumentChange.getText());
-			this.textVersion.put(params.getTextDocument().getUri(), params.getTextDocument().getVersion());
+			textMap.put(params.getTextDocument().getUri(), textDocumentChange.getText());
+			textVersion.put(params.getTextDocument().getUri(), params.getTextDocument().getVersion());
 						
 			ServerProcess.documentChanged(params.getTextDocument().getUri(), textDocumentChange.getText(), params.getTextDocument().getVersion());
 		});
-		
-//		if (didChangeCallback != null) {
-//			didChangeCallback.complete(params);
-//			didChangeCallback = null;
-//		}
 	}
 	
 	@Override
@@ -368,10 +291,6 @@ public class ALSPTextDocumentService implements TextDocumentService {
 			didSaveCallback = null;
 		}
 	}
-	
-	public void setMockCompletionList(CompletionList completionList) {
-		//this.mockCompletionList = completionList;
-	}
 
 	public void setDidChangeCallback(CompletableFuture<DidChangeTextDocumentParams> didChangeExpectation) {
 		//this.didChangeCallback = didChangeExpectation;
@@ -385,49 +304,12 @@ public class ALSPTextDocumentService implements TextDocumentService {
 		this.didCloseCallback = didCloseExpectation;
 	}
 	
-	public void setMockHover(Hover hover) {
-		this.mockHover = hover;
-	}
-	
-	public void setMockDefinitionLocations(List<? extends Location> definitionLocations) {
-		this.mockDefinitionLocations = definitionLocations;
-	}
-
-	public void setMockReferences(Location location) {
-		this.mockReferences = location;
-	}
-	
-	public void setMockFormattingTextEdits(List<? extends TextEdit> formattingTextEdits) {
-		this.mockFormattingTextEdits = formattingTextEdits;
-	}
-
-	public void setMockDocumentLinks(List<DocumentLink> documentLinks) {
-		this.mockDocumentLinks = documentLinks;
-	}
-	
 	public void reset() {
-//		this.mockCompletionList = new CompletionList();
-//		this.mockDefinitionLocations = Collections.emptyList();
-//		this.mockHover = null;
-//		this.mockReferences = null;
-//		this.remoteProxies = new ArrayList<LanguageClient>();
-//		this.mockCodeActions = new ArrayList<Command>();
-	}
-
-	public void setDiagnostics(List<Diagnostic> diagnostics) {
-		//this.diagnostics = diagnostics;
+		
 	}
 
 	public void addRemoteProxy(LanguageClient remoteProxy) {
 		this.remoteProxies.add(remoteProxy);
-	}
-
-	public void setCodeActions(List<Command> commands) {
-		this.mockCodeActions = commands;
-	}
-	
-	public void setSignatureHelp(SignatureHelp signatureHelp) {
-		this.mockSignatureHelp = signatureHelp;
 	}
 	
 	private int pointToPosition(int row, int column, String text) {

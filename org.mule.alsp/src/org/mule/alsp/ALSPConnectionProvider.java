@@ -3,23 +3,13 @@ package org.mule.alsp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URI;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
-
 import org.eclipse.lsp4e.server.StreamConnectionProvider1;
 import org.eclipse.lsp4j.jsonrpc.messages.Message;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 public class ALSPConnectionProvider implements StreamConnectionProvider1 {
-	private Socket socket;
-	
-	private ALSPSever mockServer = null;
-	
-	private static int cnt = 0;
+	private ALSPSever server = null;
 	
 	@Override
 	public void handleMessage(Message message, LanguageServer languageServer, URI rootURI) {
@@ -36,9 +26,9 @@ public class ALSPConnectionProvider implements StreamConnectionProvider1 {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					mockServer = new ALSPSever();
+					server = new ALSPSever();
 					
-					mockServer.start();	
+					server.start();	
 				} catch (Throwable t) {
 					t.printStackTrace();
 				}
@@ -49,7 +39,7 @@ public class ALSPConnectionProvider implements StreamConnectionProvider1 {
 	}
 	
 	synchronized void sleepUntilInitialized() {
-		while(mockServer == null) {
+		while(server == null) {
 			try {
 				wait(10);
 			} catch (InterruptedException e) {
@@ -62,14 +52,14 @@ public class ALSPConnectionProvider implements StreamConnectionProvider1 {
 	public InputStream getInputStream() {
 		sleepUntilInitialized();
 		
-		return mockServer.consumerInputStream;
+		return server.consumerInputStream;
 	}
 	
 	@Override
 	public OutputStream getOutputStream() {
 		sleepUntilInitialized();
 		
-		return mockServer.consumerOutputStream;
+		return server.consumerOutputStream;
 	}
 	
 	@Override
