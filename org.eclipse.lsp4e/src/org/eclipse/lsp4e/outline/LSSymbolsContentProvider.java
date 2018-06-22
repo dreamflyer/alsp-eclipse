@@ -43,14 +43,13 @@ import org.eclipse.ui.navigator.ICommonContentProvider;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 public class LSSymbolsContentProvider implements ICommonContentProvider, ITreeContentProvider, IDocumentListener, IResourceChangeListener {
-
 	public static final Object COMPUTING = new Object();
 
 	private TreeViewer viewer;
 	private Throwable lastError;
 	private LSPDocumentInfo info;
-
-	private SymbolsModel symbolsModel = new SymbolsModel();
+	
+	private SymbolsTree symbolsModel = new SymbolsTree();
 	private CompletableFuture<List<? extends SymbolInformation>> symbols;
 
 	private IResource resource;
@@ -114,7 +113,7 @@ public class LSSymbolsContentProvider implements ICommonContentProvider, ITreeCo
 		symbols = info.getLanguageClient().getTextDocumentService().documentSymbol(params);
 
 		symbols.thenAccept((List<? extends SymbolInformation> t) -> {
-			symbolsModel.update(t);
+			symbolsModel.update((List<SymbolInformation>) t);
 
 			viewer.getControl().getDisplay().asyncExec(() -> {
 				viewer.refresh();

@@ -1,91 +1,153 @@
-/*******************************************************************************
- * Copyright (c) 2016 Rogue Wave Software Inc. and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *  Michał Niewrzał (Rogue Wave Software Inc.) - initial implementation
- *******************************************************************************/
 package org.eclipse.lsp4e.outline;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Stack;
 
 import org.eclipse.lsp4j.Location;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.SymbolInformation;
 
-public class SymbolsModel {
-	private static final SymbolInformation ROOT = new SymbolInformation();
+class SymbolsTree {
+	private SymbolInformation info;
 	
-	private static final Object[] EMPTY = new Object[0];
+	private SymbolInformation parent;
 	
-	private Map<SymbolInfoWrapper, List<SymbolInformation>> childrenMap = new HashMap<>();
+	private List<SymbolsTree> children = new ArrayList<SymbolsTree>();
 	
-	public boolean update(List<? extends SymbolInformation> response) {
-		childrenMap.clear();
+	private static final String CATEGORY_ID = "categories";
+	
+	public SymbolsTree() {
 		
-		if(response != null && !response.isEmpty()) {
-			Collections.sort(response, new Comparator<SymbolInformation>() {
-				public int compare(SymbolInformation o1, SymbolInformation o2) {
-					Range r1 = o1.getLocation().getRange();
-					Range r2 = o2.getLocation().getRange();
-					
-					if(r1.getStart().getLine() == r2.getStart().getLine()) {
-						return Integer.compare(r1.getStart().getCharacter(), r2.getStart().getCharacter());
-					}
-					
-					return Integer.compare(r1.getStart().getLine(), r2.getStart().getLine());
-				}
-			});
+	}
+	
+	private SymbolsTree(SymbolInformation info) {
+		this.info = info;
+	}
+	
+	public void update(List<SymbolInformation> infos) {
+		children = new ArrayList<SymbolsTree>();
+		
+		infos.forEach(info -> addChild(info));
+		
+		setParent();
+	}
+	
+	public Object getParent(Object child) {
+		if(!(child instanceof SymbolInformation)) {
+			return null;
+		}
+		
+		SymbolsTree owner = findOwner((SymbolInformation) child);
+		
+		if(owner == null) {
+			return null;
+		}
+		
+		return owner.parent;
+	}
+	
+	public Object[] getChildren(Object parent) {
+		if(!(parent instanceof SymbolInformation)) {
+			return new Object[0];
+		}
+		
+		SymbolsTree owner = findOwner((SymbolInformation) parent);
+		
+		if(owner == null) {
+			return new Object[0];
+		}
+		
+		return owner.getElements();
+	}
+	
+	public Object[] getElements() {
+		return children.stream().map(item -> item.info).toArray();
+	}
+	
+	private void setParent() {
+		children.forEach(child -> {
+			child.parent = this.info;
 			
-			Stack<SymbolInfoWrapper> parentStack = new Stack<>();
+			child.setParent();
+		});
+	}
+	
+	private SymbolsTree findOwner(SymbolInformation parent) {
+		if(this.info == parent) {
+			return this;
+		}
+		
+		for(SymbolsTree child: children) {
+			SymbolsTree canBeOwner = child.findOwner(parent);
 			
-			parentStack.push(new SymbolInfoWrapper(ROOT));
+			if(canBeOwner == null) {
+				continue;
+			}
 			
-			SymbolInformation previousSymbol = null;
+			return canBeOwner;
+		}
+		
+		return null;
+	}
+	
+	private void addChild(SymbolInformation info) {
+		int index = indexOfParentOf(info);
+		
+		if(index != -1) {
+			SymbolsTree parent = children.get(index);
 			
-			for(int i = 0; i < response.size(); i++) {
-				SymbolInformation symbol = response.get(i);
-				
-				if(isIncluded(previousSymbol, symbol)) {
-					parentStack.push(new SymbolInfoWrapper(previousSymbol));
-					
-					addChild(parentStack.peek(), symbol);
-				} else if(isIncluded(parentStack.peek().info, symbol)) {
-					addChild(parentStack.peek(), symbol);
-				} else {
-					while(!isIncluded(parentStack.peek().info, symbol)) {
-						parentStack.pop();
-					}
-					
-					addChild(parentStack.peek(), symbol);
-					
-					parentStack.push(new SymbolInfoWrapper(symbol));
-				}
-				
-				previousSymbol = symbol;
+			parent.addChild(info);
+			
+			return;
+		}
+		
+		SymbolsTree newItem = new SymbolsTree(info);
+		
+		index = indexOfChildOf(info);
+		
+		if(index != -1) {			
+			SymbolInformation child = children.get(index).info;
+			
+			children.remove(index);
+			
+			newItem.addChild(child);
+		}
+		
+		children.add(newItem);
+	}
+	
+	private int indexOfParentOf(SymbolInformation info) {
+		for(int i = 0; i < children.size(); i++) {
+			if(isIncluded(children.get(i).info, info)) {
+				return i;
 			}
 		}
-		return true;
+		
+		return -1;
+	}
+	
+	private int indexOfChildOf(SymbolInformation info) {
+		for(int i = 0; i < children.size(); i++) {
+			if(isIncluded(info, children.get(i).info)) {
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 	
 	private boolean isIncluded(SymbolInformation parent, SymbolInformation symbol) {
-		if(parent == null || symbol == null) {
+		if(isCategory(symbol)) {
 			return false;
 		}
 		
-		if(parent == ROOT) {
-			return true;
+		if(isCategory(parent)) {
+			return symbol.getContainerName().equals(parent.getName());
+		}
+		
+		if(!symbol.getContainerName().equals(parent.getContainerName())) {
+			return false;
 		}
 		
 		return isIncluded(parent.getLocation(), symbol.getLocation());
@@ -106,68 +168,22 @@ public class SymbolsModel {
 		
 		return true;
 	}
-	
+		
 	private boolean isAfter(Position reference, Position included) {
 		return included.getLine() > reference.getLine() || (included.getLine() == reference.getLine() && included.getCharacter() > reference.getCharacter());
 	}
 	
-	private void addChild(SymbolInfoWrapper parent, SymbolInformation child) {
-		List<SymbolInformation> children = childrenMap.get(parent);
+	public static boolean isCategory(SymbolInformation symbol) {
+		return CATEGORY_ID.equals(symbol.getContainerName());
+	}
+	
+	public static boolean isValidRange(SymbolInformation symbol) {
+		Range range = symbol.getLocation().getRange();
 		
-		if(children == null) {
-			children = new ArrayList<>();
-			
-			childrenMap.put(parent, children);
-		}
-		
-		children.add(child);
+		return isValidPosition(range.getStart()) && isValidPosition(range.getEnd());
 	}
 	
-	public Object[] getElements() {
-		return getChildren(ROOT);
-	}
-	
-	public Object[] getChildren(Object parentElement) {
-		if(parentElement != null && parentElement instanceof SymbolInformation) {
-			List<SymbolInformation> children = childrenMap.get(new SymbolInfoWrapper((SymbolInformation) parentElement));
-			
-			if(children != null) {
-				return children.toArray();
-			}
-		}
-		
-		return EMPTY;
-	}
-	
-	public Object getParent(Object element) {
-		Optional<SymbolInfoWrapper> result = childrenMap.keySet().stream().filter(parent -> {
-			List<SymbolInformation> children = childrenMap.get(parent);
-			
-			return children == null ? false : children.contains(element);
-		}).findFirst();
-		
-		return result.isPresent() ? result.get() : null;
-	}
-}
-
-class SymbolInfoWrapper {
-	SymbolInformation info;
-	
-	SymbolInfoWrapper(SymbolInformation info) {
-		this.info = info;
-	}
-	
-	public int hashCode() {
-		return info.hashCode();
-	}
-	
-	public boolean equals(Object obj) {
-		if(obj instanceof SymbolInfoWrapper) {
-			SymbolInfoWrapper another = (SymbolInfoWrapper) obj;
-			
-			return another.info == this.info;
-		}
-		
-		return false;
+	private static boolean isValidPosition(Position position) {
+		return position.getLine() >= 0 && position.getCharacter() >= 0;
 	}
 }

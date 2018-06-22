@@ -77,11 +77,11 @@ public class SymbolsLabelProvider extends LabelProvider implements ICommonLabelP
 		
 		SymbolInformation symbolInformation = (SymbolInformation) element;
 		
-		Image res = LSPImages.getImage(LSPImages.IMG_RIGHTARROW);
+		Image res = symbolInformation.getKind() != null ? LSPImages.imageFromSymbolKind(symbolInformation.getKind()) : LSPImages.getImage(LSPImages.IMG_RIGHTARROW);
 		
 		IResource resource = LSPEclipseUtils.findResourceFor(symbolInformation.getLocation().getUri());
 		
-		if(resource != null) {
+		if(resource != null && !SymbolsTree.isCategory(symbolInformation) && SymbolsTree.isValidRange(symbolInformation)) {
 			try {
 				IDocument doc = LSPEclipseUtils.getDocument(resource);
 				
