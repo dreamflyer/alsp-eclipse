@@ -32,7 +32,7 @@ Eclipse-SourceReferences: scm:git:https://git.eclipse.org/r/p/lsp4e/ls
  7c6fa69b2b901
 Bundle-Vendor: Eclipse.org
 Import-Package: com.google.common.base,com.google.gson;version="2.7.0"
-Export-Package: org.eclipse.lsp4e;x-internal:=true,
+Export-Package: org.eclipse.lsp4e,
  org.eclipse.lsp4e.operations.codeactions,
  org.eclipse.lsp4e.operations.codelens,
  org.eclipse.lsp4e.operations.completion;x-internal:=true,

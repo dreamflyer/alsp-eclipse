@@ -29,7 +29,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
 public class ALSPSever implements LanguageServer {
-	private ALSPTextDocumentService textDocumentService = new ALSPTextDocumentService(this::buildMaybeDelayedFuture);
+	private ALSPTextDocumentService textDocumentService = new ALSPTextDocumentService();
 	
 	private ALSPWorkspaceService workspaceService = new ALSPWorkspaceService(this::buildMaybeDelayedFuture);
 	
@@ -127,18 +127,6 @@ public class ALSPSever implements LanguageServer {
 	@Override
 	public WorkspaceService getWorkspaceService() {
 		return workspaceService;
-	}
-	
-	public void setDidChangeCallback(CompletableFuture<DidChangeTextDocumentParams> didChangeExpectation) {
-		this.textDocumentService.setDidChangeCallback(didChangeExpectation);
-	}
-	
-	public void setDidSaveCallback(CompletableFuture<DidSaveTextDocumentParams> didSaveExpectation) {
-		this.textDocumentService.setDidSaveCallback(didSaveExpectation);
-	}
-	
-	public void setDidCloseCallback(CompletableFuture<DidCloseTextDocumentParams> didCloseExpectation) {
-		this.textDocumentService.setDidCloseCallback(didCloseExpectation);
 	}
 	
 	public void setCompletionTriggerChars(Set<String> chars) {

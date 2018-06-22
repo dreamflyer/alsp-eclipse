@@ -48,6 +48,7 @@ import org.eclipse.jface.text.TextSelection;
 import org.eclipse.lsp4j.DiagnosticSeverity;
 import org.eclipse.lsp4j.Location;
 import org.eclipse.lsp4j.Position;
+import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextDocumentEdit;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.TextDocumentPositionParams;
@@ -106,9 +107,35 @@ public class LSPEclipseUtils {
 		res.setCharacter(offset - document.getLineInformationOfOffset(offset).getOffset());
 		return res;
 	}
-
+	
+	public static Position position(int offset, TextDocumentIdentifier id) {
+		try {
+			return toPosition(offset, toDocument(id));
+		} catch(BadLocationException e) {
+			return new Position(-1, -1);
+		}
+	}
+	
 	public static int toOffset(Position position, IDocument document) throws BadLocationException {
 		return document.getLineInformation(position.getLine()).getOffset() + position.getCharacter();
+	}
+	
+	public static int offset(Position position, TextDocumentIdentifier id) {
+		try {
+			return toOffset(position, toDocument(id));
+		} catch(BadLocationException e) {
+			return -1;
+		}
+	}
+	
+	public static Range range(int startOffset, int endOffset, TextDocumentIdentifier id) {
+		IDocument document = toDocument(id);
+		
+		try {
+			return new Range(toPosition(startOffset, document), toPosition(endOffset, document));
+		} catch(BadLocationException e) {
+			return new Range(new Position(-1, -1), new Position(-1, -1));
+		}
 	}
 
 	public static TextDocumentPositionParams toTextDocumentPosistionParams(URI fileUri, int offset, IDocument document)
@@ -121,6 +148,10 @@ public class LSPEclipseUtils {
 		id.setUri(fileUri.toString());
 		param.setTextDocument(id);
 		return param;
+	}
+	
+	public static IDocument toDocument(TextDocumentIdentifier id) {
+		return LSPEclipseUtils.getDocument(findResourceFor(id.getUri()));
 	}
 
 	public static int toEclipseMarkerSeverity(DiagnosticSeverity lspSeverity) {
@@ -137,8 +168,7 @@ public class LSPEclipseUtils {
 			return IMarker.SEVERITY_INFO;
 		}
 	}
-
-
+	
 	@Nullable
 	public static IResource findResourceFor(@Nullable String uri) {
 		if (uri == null || uri.isEmpty()) {
@@ -215,6 +245,12 @@ public class LSPEclipseUtils {
 			manager.endCompoundChange();
 		}
 	}
+	
+	public static String textContent(String uri) {
+		IDocument doc = getDocument(findResourceFor(uri));
+		
+		return doc.get();
+	}
 
 	@Nullable
 	public static IDocument getDocument(@Nullable IResource resource) {
@@ -289,7 +325,7 @@ public class LSPEclipseUtils {
 			return null;
 		}
 	}
-
+	
 	public static IDocument getDocument(IEditorInput editorInput) {
 		if(editorInput instanceof IFileEditorInput) {
 			IFileEditorInput fileEditorInput = (IFileEditorInput)editorInput;
