@@ -33,6 +33,12 @@ class SymbolsModel {
 		setParent();
 	}
 	
+	private void dump(String indent) {
+		System.out.println(indent + (this.info == null ? "root" : this.info.getName()));
+		
+		children.forEach(child -> child.dump(indent + "\t"));
+	}
+	
 	public Object getParent(Object child) {
 		if(!(child instanceof SymbolInformation)) {
 			return null;
@@ -109,6 +115,8 @@ class SymbolsModel {
 		if(index != -1) {			
 			SymbolInformation child = children.get(index).info;
 			
+			newItem.children = children.get(index).children;
+			
 			children.remove(index);
 			
 			newItem.addChild(child);
@@ -153,7 +161,7 @@ class SymbolsModel {
 		return isIncluded(parent.getLocation(), symbol.getLocation());
 	}
 	
-	private boolean isIncluded(Location reference, Location included) {
+	private boolean isIncluded(Location reference, Location included) {		
 		if(!reference.getUri().equals(included.getUri())) {
 			return false;
 		}
@@ -162,7 +170,7 @@ class SymbolsModel {
 			return false;
 		}
 		
-		if(isAfter(included.getRange().getEnd(), reference.getRange().getEnd())) {
+		if(isAfter(reference.getRange().getEnd(), included.getRange().getEnd())) {
 			return false;
 		}
 		

@@ -33,12 +33,12 @@ import org.eclipse.lsp4j.WorkspaceEdit;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.LanguageClient;
 import org.eclipse.lsp4j.services.TextDocumentService;
+import org.mule.alsp.converters.Structure;
+import org.mule.alsp.converters.Suggestions;
+import org.mule.alsp.converters.ValidationHandler;
 import org.mulesoft.language.client.jvm.FS;
 import org.mulesoft.language.client.jvm.ServerProcess;
 import org.mulesoft.language.common.dtoTypes.IOpenedDocument;
-import converters.Structure;
-import converters.Suggestions;
-import converters.ValidationHandler;
 
 public class ALSPTextDocumentService implements TextDocumentService {
 	private List<LanguageClient> remoteProxies = new ArrayList<>();
@@ -59,6 +59,9 @@ public class ALSPTextDocumentService implements TextDocumentService {
 	
 	@Override
 	public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(TextDocumentPositionParams positionParams) {
+//		List<CompletionItem> res = new ArrayList();
+//		return CompletableFuture.completedFuture(Either.forLeft(res));
+		System.out.println("CALLING COMPLETION");
 		return Suggestions.get(positionParams);
 	}
 	
