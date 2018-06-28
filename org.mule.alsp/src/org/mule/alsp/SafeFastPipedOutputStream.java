@@ -1,30 +1,35 @@
 package org.mule.alsp;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
-public class SafeOutputStream extends OutputStream {
+public class SafeFastPipedOutputStream extends OutputStream {
 	private OutputStream stream;
-	
+		
 	private WriteTask task = new WriteTask();
 	
-	SafeOutputStream(OutputStream stream) {
+	SafeFastPipedOutputStream(OutputStream stream, InputStream inputStream) {
 		this.stream = stream;
-		
+						
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					synchronized(SafeOutputStream.this) {
+					synchronized(SafeFastPipedOutputStream.this) {
 						while(task != null) {
-							SafeOutputStream.this.wait();
+							SafeFastPipedOutputStream.this.wait();
 						
 							if(stream == null) {
 								return;
 							}
-						
+							
 							stream.write(task.b, task.off, task.len);
 							
-							SafeOutputStream.this.notify();
+							synchronized(inputStream) {
+								inputStream.notifyAll();
+							}
+														
+							SafeFastPipedOutputStream.this.notify();
 						}
 					}
 				} catch (Throwable t) {

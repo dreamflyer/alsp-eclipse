@@ -42,11 +42,14 @@ public class ALSPSever implements LanguageServer {
 	private PipedInputStream inputStream = new PipedInputStream();
 	
 	public OutputStream consumerOutputStream;
-	public InputStream consumerInputStream = new PipedInputStream();
+	
+	private InputStream consumerPipedInputStream = new PipedInputStream();
+	
+	public InputStream consumerInputStream = new DebugInputStream(consumerPipedInputStream, "client");
 	
 	ALSPSever() {
 		try {
-			consumerOutputStream = new SafeOutputStream(new PipedOutputStream(inputStream));
+			consumerOutputStream = new SafeFastPipedOutputStream(new PipedOutputStream(inputStream), inputStream);
 			
 			resetInitializeResult();
 		} catch(Throwable t) {
@@ -58,7 +61,7 @@ public class ALSPSever implements LanguageServer {
 		Launcher<LanguageClient> l = null;
 		
 		try {
-			l = LSPLauncher.createServerLauncher(this, new DebugInputStream(inputStream), new SafeOutputStream(new PipedOutputStream((PipedInputStream) consumerInputStream)));
+			l = LSPLauncher.createServerLauncher(this, new DebugInputStream(inputStream, "server"), new SafeFastPipedOutputStream(new PipedOutputStream((PipedInputStream) consumerPipedInputStream), consumerPipedInputStream));
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

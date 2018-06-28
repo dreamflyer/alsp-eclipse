@@ -7,8 +7,12 @@ import java.net.Socket;
 public class DebugInputStream extends InputStream {
 	private InputStream stream;
 	
-	DebugInputStream(InputStream stream) {
+	private String name;
+	
+	DebugInputStream(InputStream stream, String name) {
 		this.stream = stream;
+		
+		this.name = name;
 	}
 	
 	public int read() {

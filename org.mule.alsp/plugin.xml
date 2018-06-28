@@ -51,7 +51,7 @@
                file-extensions="json"
                id="org.mule.sjson"
                name="SJSON File"
-               priority="high">
+               priority="normal">
          </content-type>
    </extension>
    <extension

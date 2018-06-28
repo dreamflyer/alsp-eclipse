@@ -59,9 +59,6 @@ public class ALSPTextDocumentService implements TextDocumentService {
 	
 	@Override
 	public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(TextDocumentPositionParams positionParams) {
-//		List<CompletionItem> res = new ArrayList();
-//		return CompletableFuture.completedFuture(Either.forLeft(res));
-		System.out.println("CALLING COMPLETION");
 		return Suggestions.get(positionParams);
 	}
 	
