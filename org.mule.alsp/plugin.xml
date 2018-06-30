@@ -56,6 +56,7 @@
    </extension>
    <extension
          name="RAML Editor"
+         
          point="org.eclipse.ui.editors">
          <editorContentTypeBinding
                contentTypeId="org.mule.raml"
@@ -78,4 +79,51 @@
                editorId="org.eclipse.ui.genericeditor.GenericEditor">
    		</editorContentTypeBinding>
    </extension>
+   <extension
+         point="org.eclipse.tm4e.registry.grammars">
+      <grammar
+            path="grammars/raml.json"
+            scopeName="source.raml">
+      </grammar>
+      <grammar
+            path="grammars/syaml.json"
+            scopeName="source.syaml">
+      </grammar>
+      <grammar
+            path="grammars/sjson.json"
+            scopeName="source.sjson">
+      </grammar>
+      <scopeNameContentTypeBinding
+            contentTypeId="org.mule.raml"
+            scopeName="source.raml">
+      </scopeNameContentTypeBinding>
+      <scopeNameContentTypeBinding
+            contentTypeId="org.mule.sjson"
+            scopeName="source.sjson">
+      </scopeNameContentTypeBinding>
+      <scopeNameContentTypeBinding
+            contentTypeId="org.mule.syaml"
+            scopeName="source.syaml">
+      </scopeNameContentTypeBinding>
+   </extension>
+   <extension
+      point="org.eclipse.tm4e.ui.themes">
+   		<theme
+           id="org.eclipse.tm4e.ui.themes.OasTheme"
+           name="OasTheme"
+           path="themes/raml.css">
+   		</theme>
+   		<themeAssociation
+   		   scopeName="source.raml"
+           themeId="org.eclipse.tm4e.ui.themes.OasTheme">
+   		</themeAssociation>
+   		<themeAssociation
+   		   scopeName="source.sjson"
+           themeId="org.eclipse.tm4e.ui.themes.OasTheme">
+   		</themeAssociation>
+   		<themeAssociation
+   		   scopeName="source.syaml"
+           themeId="org.eclipse.tm4e.ui.themes.OasTheme">
+   		</themeAssociation>
+	</extension>
 </plugin>

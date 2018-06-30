@@ -1,0 +1,47 @@
+.meta.key-value {
+    color: #000000;
+}
+
+.meta.response {
+    color: #FF00FF;
+}
+
+.meta.method {
+    color: #FF0000;
+}
+
+.meta.resource {
+    color: #0000FF;
+}
+
+.meta.reference {
+    color: #00AA00;
+}
+
+.string.unquoted.yaml {
+    color: #7777CC;
+}
+
+.sjson.string {
+    color: #7777CC;
+}
+
+.sjson.key {
+    color: #000000;
+}
+
+.sjson.refstring {
+    color: #00AA00;
+}
+
+.sjson.path {
+    color: #0000FF;
+}
+
+.sjson.response {
+    color: #FF00FF;
+}
+
+.sjson.method {
+    color: #FF0000;
+}
