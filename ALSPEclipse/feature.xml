@@ -17,6 +17,11 @@
       [Enter License Description here.]
    </license>
 
+   <url>
+      <discovery label="LSP4E" url="http://download.eclipse.org/lsp4e/releases/latest/"/>
+      <discovery label="TM4E" url="http://download.eclipse.org/tm4e/snapshots/"/>
+   </url>
+
    <plugin
          id="org.mule.alsp"
          download-size="0"
@@ -31,7 +36,4 @@
          version="0.0.0"
          unpack="false"/>
 
-	<url>
-  		<discovery label="LSP4E" url="http://download.eclipse.org/lsp4e/releases/latest/"/>
-	</url>
 </feature>

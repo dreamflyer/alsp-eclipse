@@ -56,7 +56,6 @@
    </extension>
    <extension
          name="RAML Editor"
-         
          point="org.eclipse.ui.editors">
          <editorContentTypeBinding
                contentTypeId="org.mule.raml"

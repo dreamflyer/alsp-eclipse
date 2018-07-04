@@ -18,8 +18,8 @@ public class DebugInputStream extends InputStream {
 	public int read() {
 		try {
 			return stream.read();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Throwable t) {
+			close();
 		}
 		
 		return -1;
@@ -33,7 +33,11 @@ public class DebugInputStream extends InputStream {
 		return stream.available();
 	}
 	
-	public void close() throws IOException {
-		stream.close();
+	public void close() {
+		try {
+			stream.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -2,8 +2,6 @@ package org.mule.alsp;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PipedOutputStream;
-import java.net.Socket;
 
 public class DebugOutputStream extends OutputStream {
 	private OutputStream stream;
